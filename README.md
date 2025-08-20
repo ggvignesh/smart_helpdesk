@@ -97,8 +97,6 @@ Build the application for production:
 ```bash
 npm run build
 ```
-Deployed the entire project using Vercel
-Deployment link : [smart_helpdesk](smart-helpdesk-cxk5-nine.vercel.app)
 
 ## 🙏 Acknowledgments
 
