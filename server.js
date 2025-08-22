@@ -9,17 +9,15 @@ const port = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'dist'), {
-	maxAge: '1d',
-}));
 
-// API Routes
+// API Routes - MUST come BEFORE static files
 app.get('/api/health', (req, res) => {
 	res.json({ 
 		status: 'OK', 
 		message: 'Smart Helpdesk API is running',
 		timestamp: new Date().toISOString(),
-		environment: process.env.NODE_ENV || 'development'
+		environment: process.env.NODE_ENV || 'production',
+		port: port
 	});
 });
 
@@ -71,6 +69,11 @@ app.get('/api/stats', (req, res) => {
 		avgResponseTime: '2.5 hours'
 	});
 });
+
+// Static files - AFTER API routes
+app.use(express.static(path.join(__dirname, 'dist'), {
+	maxAge: '1d',
+}));
 
 // SPA fallback - must be last
 app.get('*', (req, res) => {
